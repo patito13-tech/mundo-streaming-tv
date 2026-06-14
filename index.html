@@ -95,28 +95,36 @@
   .hero {
     min-height: 100vh;
     padding: 130px 6% 80px;
-    display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 60px; align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     position: relative;
-    background:
-      radial-gradient(ellipse at 20% 40%, rgba(124,58,237,0.28) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 70%, rgba(217,70,239,0.18) 0%, transparent 45%),
-      linear-gradient(180deg, #0b0418 0%, #06020f 100%);
+    background-image:
+      linear-gradient(
+        to right,
+        rgba(6, 2, 15, 0.88) 0%,
+        rgba(76, 29, 149, 0.50) 55%,
+        rgba(6, 2, 15, 0.60) 100%
+      ),
+      url('https://images.pexels.com/photos/8263322/pexels-photo-8263322.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
 
-  /* animated star particles */
+  /* partículas de estrellas encima */
   .hero::after {
     content: '';
     position: absolute; inset: 0; z-index: 0;
     background-image:
-      radial-gradient(1px 1px at 15% 25%, rgba(255,255,255,0.6) 0%, transparent 100%),
-      radial-gradient(1px 1px at 35% 60%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      radial-gradient(1px 1px at 55% 15%, rgba(255,255,255,0.5) 0%, transparent 100%),
-      radial-gradient(1px 1px at 75% 45%, rgba(255,255,255,0.3) 0%, transparent 100%),
-      radial-gradient(1px 1px at 90% 75%, rgba(255,255,255,0.4) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 8% 80%, rgba(200,160,255,0.5) 0%, transparent 100%),
-      radial-gradient(1.5px 1.5px at 65% 85%, rgba(200,160,255,0.4) 0%, transparent 100%);
+      radial-gradient(1px 1px at 15% 25%, rgba(255,255,255,0.5) 0%, transparent 100%),
+      radial-gradient(1px 1px at 35% 60%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 15%, rgba(255,255,255,0.4) 0%, transparent 100%),
+      radial-gradient(1px 1px at 75% 45%, rgba(255,255,255,0.25) 0%, transparent 100%),
+      radial-gradient(1px 1px at 90% 75%, rgba(255,255,255,0.3) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 8% 80%, rgba(200,160,255,0.4) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 65% 85%, rgba(200,160,255,0.3) 0%, transparent 100%);
     pointer-events: none;
   }
 
@@ -207,7 +215,6 @@
     box-shadow: 0 0 25px rgba(37,211,102,.3);
   }
 
-  /* Trust badges */
   .trust-row {
     display: flex; gap: 12px; flex-wrap: wrap;
     animation: fadeUp .6s .4s ease both;
@@ -369,7 +376,6 @@
       #06020f;
   }
 
-  /* Category tabs */
   .cat-tabs {
     display: flex; gap: 10px; flex-wrap: wrap;
     justify-content: center; margin-bottom: 36px;
@@ -497,7 +503,6 @@
     line-height: 1.6; margin-bottom: 24px;
   }
 
-  /* Plan selector */
   .drawer-plans-label {
     font-size: 11px; font-weight: 700; letter-spacing: 2px;
     text-transform: uppercase; color: rgba(255,255,255,0.35);
@@ -555,7 +560,6 @@
   }
 
   .plan-btn.selected::before { opacity: 1; }
-
   .plan-btn.selected .plan-num { color: #e9d5ff; }
   .plan-btn.selected .plan-unit { color: #c4b5fd; }
 
@@ -788,8 +792,7 @@
 
   /* ─── RESPONSIVE ─────────────────────────────────────── */
   @media (max-width: 960px) {
-    .hero { grid-template-columns: 1fr; padding-top: 110px; }
-    .hero-right { order: -1; }
+    .hero { padding-top: 110px; }
     .cat-grid, .products-grid, .benefits-grid { grid-template-columns: 1fr 1fr; }
     .steps-grid { grid-template-columns: 1fr 1fr; }
     .steps-grid::before { display: none; }
@@ -855,29 +858,6 @@
     </div>
   </div>
 
-  <div class="hero-right">
-    <div class="mockup-wrap">
-      <div class="mockup">
-        <div class="mockup-inner">
-          <div class="mockup-header">
-            <div>
-              <div class="mockup-title">Premium Pass</div>
-              <div class="mockup-sub">Entretenimiento digital</div>
-            </div>
-            <div class="play-btn">▶</div>
-          </div>
-          <div class="mockup-grid">
-            <div class="mockup-tile"><span class="tile-icon">🎬</span> Streaming</div>
-            <div class="mockup-tile"><span class="tile-icon">⚽</span> Deportes</div>
-            <div class="mockup-tile"><span class="tile-icon">📡</span> IPTV</div>
-            <div class="mockup-tile"><span class="tile-icon">🎵</span> Música</div>
-            <div class="mockup-tile"><span class="tile-icon">💻</span> Licencias</div>
-            <div class="mockup-tile"><span class="tile-icon">🔒</span> VPN</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- CATEGORÍAS -->
@@ -929,7 +909,6 @@
     <p>Selecciona el servicio que te interesa y te enviamos información por WhatsApp.</p>
   </div>
 
-  <!-- Category tabs -->
   <div class="cat-tabs reveal">
     <button class="cat-tab active" data-cat="streaming">🎬 Streaming</button>
     <button class="cat-tab" data-cat="deportes">⚽ Deportes</button>
@@ -1175,7 +1154,7 @@
     </div>
   </div>
 
-  <!-- Drawer / Bottom sheet -->
+  <!-- Drawer -->
   <div class="svc-drawer-overlay" id="drawerOverlay"></div>
   <div class="svc-drawer" id="serviceDrawer">
     <div class="drawer-handle"></div>
@@ -1217,7 +1196,6 @@
     </a>
     <button class="drawer-close" id="drawerClose">Cancelar</button>
   </div>
-
 </section>
 
 <!-- CÓMO COMPRAR -->
@@ -1307,7 +1285,6 @@
 </a>
 
 <script>
-  // Scroll reveal
   const reveals = document.querySelectorAll('.reveal');
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -1316,7 +1293,6 @@
   }, { threshold: 0.12 });
   reveals.forEach(el => io.observe(el));
 
-  // Category tabs
   document.querySelectorAll('.cat-tab').forEach(tab => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
@@ -1326,7 +1302,6 @@
     });
   });
 
-  // Drawer logic
   const overlay = document.getElementById('drawerOverlay');
   const drawer = document.getElementById('serviceDrawer');
   const drawerTitle = document.getElementById('drawerTitle');
@@ -1348,7 +1323,6 @@
     drawerTitle.textContent = name;
     drawerIcon.textContent = iconEl.textContent;
     drawerIcon.style.background = iconEl.style.background;
-    // Reset plans
     document.querySelectorAll('.plan-btn').forEach(b => b.classList.remove('selected'));
     drawerBuy.classList.remove('ready');
     drawerBuy.href = '#';
@@ -1363,7 +1337,6 @@
     document.body.style.overflow = '';
   }
 
-  // Plan buttons
   document.querySelectorAll('.plan-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.plan-btn').forEach(b => b.classList.remove('selected'));
