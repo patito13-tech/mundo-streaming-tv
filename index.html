@@ -462,70 +462,159 @@
   .svc-drawer {
     position: fixed; bottom: 0; left: 50%; z-index: 201;
     transform: translateX(-50%) translateY(100%);
-    width: 100%; max-width: 600px;
-    background: #130726;
-    border-top: 1px solid rgba(147,51,234,0.35);
+    width: 100%; max-width: 520px;
+    background: linear-gradient(180deg, #160830 0%, #0f0520 100%);
+    border-top: 1px solid rgba(147,51,234,0.2);
+    border-left: 1px solid rgba(255,255,255,0.05);
+    border-right: 1px solid rgba(255,255,255,0.05);
     border-radius: 28px 28px 0 0;
-    padding: 12px 28px 44px;
-    transition: transform .35s cubic-bezier(.32,1.2,.5,1);
+    padding: 10px 28px 48px;
+    transition: transform .4s cubic-bezier(.25,1.3,.5,1);
     text-align: center;
-    box-shadow: 0 -20px 60px rgba(88,28,135,.4);
+    box-shadow: 0 -30px 80px rgba(88,28,135,.3), 0 -1px 0 rgba(147,51,234,0.15);
   }
   .svc-drawer.open { transform: translateX(-50%) translateY(0); }
 
   .drawer-handle {
-    width: 40px; height: 4px; border-radius: 999px;
-    background: rgba(255,255,255,0.15); margin: 0 auto 20px;
+    width: 36px; height: 3px; border-radius: 999px;
+    background: rgba(255,255,255,0.1); margin: 0 auto 24px;
   }
 
   .drawer-icon {
     display: inline-flex; align-items: center; justify-content: center;
-    width: 62px; height: 62px; border-radius: 18px;
-    font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 14px;
+    width: 68px; height: 68px; border-radius: 22px;
+    font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.35);
   }
 
   .drawer-title {
     font-family: 'Syne', sans-serif;
-    font-size: 22px; font-weight: 800; margin-bottom: 10px;
+    font-size: 20px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.3px;
   }
 
   .drawer-desc {
-    font-size: 14px; color: var(--text-muted);
-    line-height: 1.6; margin-bottom: 20px;
+    font-size: 13px; color: rgba(255,255,255,0.38);
+    line-height: 1.6; margin-bottom: 24px;
   }
+
+  /* Plan selector */
+  .drawer-plans-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: rgba(255,255,255,0.35);
+    margin-bottom: 14px; display: block;
+  }
+
+  .drawer-plans {
+    display: flex; gap: 8px; margin-bottom: 24px;
+    justify-content: center;
+  }
+
+  .plan-btn {
+    flex: 1; max-width: 90px;
+    padding: 10px 6px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(255,255,255,0.08);
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    cursor: pointer; transition: all .22s;
+    display: flex; flex-direction: row;
+    align-items: center; justify-content: center;
+    gap: 5px;
+    position: relative; overflow: hidden;
+  }
+
+  .plan-btn::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(147,51,234,0.25), rgba(217,70,239,0.1));
+    opacity: 0; transition: opacity .22s;
+    border-radius: 999px;
+  }
+
+  .plan-btn:hover { border-color: rgba(147,51,234,0.4); }
+  .plan-btn:hover::before { opacity: 1; }
+
+  .plan-btn .plan-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 15px; font-weight: 800;
+    color: rgba(255,255,255,0.45);
+    transition: color .2s; line-height: 1;
+    position: relative; z-index: 1;
+  }
+
+  .plan-btn .plan-unit {
+    font-size: 11px; color: rgba(255,255,255,0.3);
+    font-weight: 600;
+    transition: color .2s; position: relative; z-index: 1;
+  }
+
+  .plan-btn.selected {
+    border-color: rgba(147,51,234,0.7);
+    box-shadow: 0 0 0 1px rgba(147,51,234,0.3), 0 4px 16px rgba(88,28,135,.3);
+  }
+
+  .plan-btn.selected::before { opacity: 1; }
+
+  .plan-btn.selected .plan-num { color: #e9d5ff; }
+  .plan-btn.selected .plan-unit { color: #c4b5fd; }
+
+  .plan-best {
+    position: absolute; top: 6px; right: 8px;
+    width: 5px; height: 5px; border-radius: 50%;
+    background: #a78bfa;
+    box-shadow: 0 0 5px #a78bfa;
+    opacity: 0; transition: opacity .2s;
+  }
+
+  .plan-btn.selected .plan-best { opacity: 1; }
 
   .drawer-pills {
     display: flex; gap: 8px; flex-wrap: wrap;
-    justify-content: center; margin-bottom: 24px;
+    justify-content: center; margin-bottom: 22px;
   }
 
   .drawer-pill {
-    padding: 6px 14px; border-radius: 999px;
-    background: rgba(147,51,234,0.15);
-    border: 1px solid rgba(147,51,234,0.3);
-    font-size: 12px; font-weight: 700; color: #c4b5fd;
+    padding: 5px 13px; border-radius: 999px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45);
+    letter-spacing: 0.2px;
   }
 
   .drawer-buy {
-    display: block; width: 100%;
-    padding: 16px; border-radius: 16px;
-    font-weight: 800; font-size: 16px; color: #fff;
-    background: linear-gradient(135deg, #128C7E, #25D366);
-    box-shadow: 0 0 28px rgba(37,211,102,.4);
-    margin-bottom: 12px;
-    transition: transform .2s, box-shadow .2s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    width: 100%; padding: 17px; border-radius: 16px;
+    font-weight: 800; font-size: 15px; color: rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.05);
+    border: 1.5px solid rgba(255,255,255,0.08);
+    margin-bottom: 10px;
+    transition: all .25s;
+    pointer-events: none;
   }
-  .drawer-buy:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(37,211,102,.6); }
+
+  .drawer-buy.ready {
+    color: #fff;
+    background: linear-gradient(135deg, #0d7a5f, #128C7E 40%, #1aaa5e);
+    border-color: transparent;
+    box-shadow: 0 0 30px rgba(18,140,126,.35), 0 4px 20px rgba(0,0,0,.25);
+    pointer-events: all;
+  }
+
+  .drawer-buy.ready:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 45px rgba(18,140,126,.5), 0 8px 28px rgba(0,0,0,.3);
+  }
 
   .drawer-close {
     width: 100%; padding: 14px; border-radius: 14px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: var(--text-muted); font-size: 14px; font-weight: 600;
+    background: transparent; border: none;
+    color: rgba(255,255,255,0.25); font-size: 13px; font-weight: 600;
     cursor: pointer; font-family: 'Inter', sans-serif;
-    transition: background .2s;
+    transition: color .2s;
+    letter-spacing: 0.3px;
   }
-  .drawer-close:hover { background: rgba(255,255,255,0.1); }
+  .drawer-close:hover { color: rgba(255,255,255,0.5); }
 
   @media (max-width: 640px) {
     .service-grid { grid-template-columns: 1fr; }
@@ -1094,11 +1183,34 @@
       <span class="drawer-icon" id="drawerIcon"></span>
     </div>
     <h3 class="drawer-title" id="drawerTitle"></h3>
-    <p class="drawer-desc">Escríbenos por WhatsApp y te damos precio, disponibilidad y método de pago al instante.</p>
+    <p class="drawer-desc">Elige tu plan y te enviamos precio y disponibilidad al instante por WhatsApp.</p>
+    <span class="drawer-plans-label">Selecciona tu plan</span>
+    <div class="drawer-plans">
+      <button class="plan-btn" data-months="1">
+        <span class="plan-best"></span>
+        <span class="plan-num">1</span>
+        <span class="plan-unit">mes</span>
+      </button>
+      <button class="plan-btn" data-months="3">
+        <span class="plan-best"></span>
+        <span class="plan-num">3</span>
+        <span class="plan-unit">meses</span>
+      </button>
+      <button class="plan-btn" data-months="6">
+        <span class="plan-best"></span>
+        <span class="plan-num">6</span>
+        <span class="plan-unit">meses</span>
+      </button>
+      <button class="plan-btn" data-months="12">
+        <span class="plan-best"></span>
+        <span class="plan-num">12</span>
+        <span class="plan-unit">meses</span>
+      </button>
+    </div>
     <div class="drawer-pills">
       <span class="drawer-pill">⚡ Entrega rápida</span>
       <span class="drawer-pill">🛡️ Con garantía</span>
-      <span class="drawer-pill">💬 Atención directa</span>
+      <span class="drawer-pill">💬 Soporte incluido</span>
     </div>
     <a class="drawer-buy" id="drawerBuy" href="#" target="_blank">
       💬 Quiero este servicio por WhatsApp
@@ -1222,14 +1334,24 @@
   const drawerBuy = document.getElementById('drawerBuy');
   const drawerClose = document.getElementById('drawerClose');
 
+  let currentService = '';
+
+  function buildWALink(service, months) {
+    const msg = encodeURIComponent(
+      `Hola 👋, vengo desde Mundo Streaming TV.\nQuiero información sobre: *${service}*\nPlan: *${months} ${months === 1 ? 'mes' : 'meses'}*`
+    );
+    return 'https://wa.me/51918851882?text=' + msg;
+  }
+
   function openDrawer(name, iconEl) {
+    currentService = name;
     drawerTitle.textContent = name;
-    // Clone icon style
     drawerIcon.textContent = iconEl.textContent;
     drawerIcon.style.background = iconEl.style.background;
-    // Build WhatsApp link
-    const msg = encodeURIComponent('Hola 👋, vengo desde Mundo Streaming TV y quiero información sobre: ' + name);
-    drawerBuy.href = 'https://wa.me/51918851882?text=' + msg;
+    // Reset plans
+    document.querySelectorAll('.plan-btn').forEach(b => b.classList.remove('selected'));
+    drawerBuy.classList.remove('ready');
+    drawerBuy.href = '#';
     overlay.classList.add('open');
     drawer.classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -1241,11 +1363,21 @@
     document.body.style.overflow = '';
   }
 
+  // Plan buttons
+  document.querySelectorAll('.plan-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.plan-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      const months = parseInt(btn.dataset.months);
+      drawerBuy.href = buildWALink(currentService, months);
+      drawerBuy.classList.add('ready');
+      drawerBuy.textContent = `💬 Quiero ${currentService} · ${months} ${months === 1 ? 'mes' : 'meses'}`;
+    });
+  });
+
   document.querySelectorAll('.service-card').forEach(card => {
     card.addEventListener('click', () => {
-      const name = card.dataset.service;
-      const iconEl = card.querySelector('.svc-icon');
-      openDrawer(name, iconEl);
+      openDrawer(card.dataset.service, card.querySelector('.svc-icon'));
     });
   });
 
