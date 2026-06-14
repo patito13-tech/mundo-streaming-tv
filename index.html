@@ -362,80 +362,174 @@
   .cat-card h3 { font-size: 19px; font-weight: 800; margin-bottom: 8px; }
   .cat-card p { color: var(--text-muted); font-size: 14px; line-height: 1.6; }
 
-  /* ─── PRODUCTS ───────────────────────────────────────── */
+  /* ─── CATALOG ────────────────────────────────────────── */
   #catalogo {
     background:
       radial-gradient(ellipse at 50% 0%, rgba(124,58,237,0.15) 0%, transparent 60%),
       #06020f;
   }
 
-  .products-grid {
+  /* Category tabs */
+  .cat-tabs {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    justify-content: center; margin-bottom: 36px;
+  }
+
+  .cat-tab {
+    padding: 10px 20px; border-radius: 999px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; font-weight: 700;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.1);
+    color: var(--text-muted);
+    cursor: pointer; transition: all .2s;
+  }
+
+  .cat-tab:hover {
+    background: rgba(147,51,234,0.15);
+    border-color: rgba(147,51,234,0.4);
+    color: #d8b4fe;
+  }
+
+  .cat-tab.active {
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 0 20px var(--glow);
+  }
+
+  .service-panel { display: none; }
+  .service-panel.active { display: block; }
+
+  .service-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 12px;
   }
 
-  .product-card {
-    border-radius: 24px;
+  .service-card {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 18px;
+    border-radius: 18px;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.08);
-    overflow: hidden;
-    display: flex; flex-direction: column;
-    transition: transform .25s, box-shadow .25s, border-color .25s;
+    cursor: pointer;
+    transition: all .2s;
+    user-select: none;
   }
 
-  .product-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 24px 60px rgba(88,28,135,.3);
+  .service-card:hover {
+    background: rgba(147,51,234,0.12);
     border-color: rgba(147,51,234,0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(88,28,135,.2);
   }
 
-  .product-card-top {
-    padding: 24px 22px 0;
-    flex: 1;
+  .service-card:active { transform: scale(0.97); }
+
+  .svc-icon {
+    width: 42px; height: 42px; border-radius: 12px;
+    display: grid; place-items: center;
+    font-size: 15px; font-weight: 900; color: #fff;
+    flex-shrink: 0; letter-spacing: -1px;
   }
 
-  .product-tag {
-    display: inline-flex; align-items: center;
-    padding: 5px 12px; border-radius: 999px;
-    font-size: 12px; font-weight: 700;
-    margin-bottom: 16px;
+  .svc-name {
+    flex: 1; font-size: 14px; font-weight: 700;
+    display: flex; flex-direction: column; gap: 4px;
   }
 
-  .tag-hot { background: rgba(251,113,133,0.2); color: #fb7185; border: 1px solid rgba(251,113,133,0.3); }
-  .tag-stream { background: rgba(147,51,234,0.2); color: #c084fc; border: 1px solid rgba(147,51,234,0.3); }
-  .tag-sport { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.25); }
-  .tag-music { background: rgba(251,146,60,0.15); color: #fb923c; border: 1px solid rgba(251,146,60,0.25); }
-  .tag-tool { background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.25); }
-  .tag-vpn { background: rgba(99,102,241,0.2); color: #818cf8; border: 1px solid rgba(99,102,241,0.3); }
-
-  .product-card h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
-  .product-card p { font-size: 14px; color: var(--text-muted); line-height: 1.55; margin-bottom: 12px; }
-
-  .product-avail {
-    font-size: 13px; font-weight: 600;
-    color: #a78bfa; padding-bottom: 20px;
+  .svc-badge {
+    font-size: 11px; font-weight: 700;
+    color: #fb923c; display: block;
   }
 
-  .product-buy {
-    display: block; margin: 0 22px 22px;
-    padding: 14px; border-radius: 14px;
-    text-align: center; font-weight: 800; font-size: 14px;
-    background: linear-gradient(135deg, var(--purple), var(--pink));
-    color: #fff;
-    box-shadow: 0 4px 18px rgba(147,51,234,0.3);
+  .svc-arrow {
+    font-size: 22px; color: var(--text-muted);
+    font-weight: 300; flex-shrink: 0;
+  }
+
+  /* ─── DRAWER ─────────────────────────────────────────── */
+  .svc-drawer-overlay {
+    position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.65);
+    backdrop-filter: blur(4px);
+    opacity: 0; pointer-events: none;
+    transition: opacity .3s;
+  }
+  .svc-drawer-overlay.open { opacity: 1; pointer-events: all; }
+
+  .svc-drawer {
+    position: fixed; bottom: 0; left: 50%; z-index: 201;
+    transform: translateX(-50%) translateY(100%);
+    width: 100%; max-width: 600px;
+    background: #130726;
+    border-top: 1px solid rgba(147,51,234,0.35);
+    border-radius: 28px 28px 0 0;
+    padding: 12px 28px 44px;
+    transition: transform .35s cubic-bezier(.32,1.2,.5,1);
+    text-align: center;
+    box-shadow: 0 -20px 60px rgba(88,28,135,.4);
+  }
+  .svc-drawer.open { transform: translateX(-50%) translateY(0); }
+
+  .drawer-handle {
+    width: 40px; height: 4px; border-radius: 999px;
+    background: rgba(255,255,255,0.15); margin: 0 auto 20px;
+  }
+
+  .drawer-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 62px; height: 62px; border-radius: 18px;
+    font-size: 20px; font-weight: 900; color: #fff; margin-bottom: 14px;
+  }
+
+  .drawer-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px; font-weight: 800; margin-bottom: 10px;
+  }
+
+  .drawer-desc {
+    font-size: 14px; color: var(--text-muted);
+    line-height: 1.6; margin-bottom: 20px;
+  }
+
+  .drawer-pills {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    justify-content: center; margin-bottom: 24px;
+  }
+
+  .drawer-pill {
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(147,51,234,0.15);
+    border: 1px solid rgba(147,51,234,0.3);
+    font-size: 12px; font-weight: 700; color: #c4b5fd;
+  }
+
+  .drawer-buy {
+    display: block; width: 100%;
+    padding: 16px; border-radius: 16px;
+    font-weight: 800; font-size: 16px; color: #fff;
+    background: linear-gradient(135deg, #128C7E, #25D366);
+    box-shadow: 0 0 28px rgba(37,211,102,.4);
+    margin-bottom: 12px;
     transition: transform .2s, box-shadow .2s;
-    position: relative; overflow: hidden;
   }
+  .drawer-buy:hover { transform: translateY(-2px); box-shadow: 0 0 40px rgba(37,211,102,.6); }
 
-  .product-buy::after {
-    content: '→';
-    margin-left: 6px; display: inline-block;
-    transition: transform .2s;
+  .drawer-close {
+    width: 100%; padding: 14px; border-radius: 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--text-muted); font-size: 14px; font-weight: 600;
+    cursor: pointer; font-family: 'Inter', sans-serif;
+    transition: background .2s;
   }
+  .drawer-close:hover { background: rgba(255,255,255,0.1); }
 
-  .product-buy:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(147,51,234,0.5); }
-  .product-buy:hover::after { transform: translateX(4px); }
+  @media (max-width: 640px) {
+    .service-grid { grid-template-columns: 1fr; }
+  }
 
   /* ─── HOW IT WORKS ───────────────────────────────────── */
   #beneficios { background: linear-gradient(180deg, #06020f, #080213 50%, #06020f); }
@@ -741,85 +835,277 @@
 <!-- CATÁLOGO / PRODUCTOS -->
 <section id="catalogo">
   <div class="section-header reveal">
-    <span class="section-label">Catálogo</span>
-    <h2>Productos destacados</h2>
-    <p>Precios y disponibilidad se confirman directamente por WhatsApp.</p>
+    <span class="section-label">Catálogo completo</span>
+    <h2>¿Qué quieres comprar?</h2>
+    <p>Selecciona el servicio que te interesa y te enviamos información por WhatsApp.</p>
   </div>
-  <div class="products-grid">
 
-    <div class="product-card reveal">
-      <div class="product-card-top">
-        <span class="product-tag tag-hot">🔥 Más vendido</span>
-        <h3>📺 Flujo TV</h3>
-        <p>TV en vivo, deportes en vivo, películas y contenido variado sin cortes.</p>
-        <div class="product-avail">Planes: 1, 3, 6 y 12 meses</div>
-      </div>
-      <a class="product-buy" target="_blank" href="https://wa.me/51918851882?text=Hola%2C%20quiero%20comprar%20Flujo%20TV%20en%20Mundo%20Streaming%20TV.">
-        Comprar por WhatsApp
-      </a>
-    </div>
-
-    <div class="product-card reveal">
-      <div class="product-card-top">
-        <span class="product-tag tag-stream">🎬 Streaming</span>
-        <h3>Cuentas Premium</h3>
-        <p>Servicios de películas, series y entretenimiento digital de primer nivel.</p>
-        <div class="product-avail">Consulta disponibilidad</div>
-      </div>
-      <a class="product-buy" target="_blank" href="https://wa.me/51918851882?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20cuentas%20premium%20de%20streaming.">
-        Comprar por WhatsApp
-      </a>
-    </div>
-
-    <div class="product-card reveal">
-      <div class="product-card-top">
-        <span class="product-tag tag-sport">⚽ Deportes</span>
-        <h3>Deportes en vivo</h3>
-        <p>Accesos para partidos, ligas internacionales y eventos deportivos en HD.</p>
-        <div class="product-avail">Consulta disponibilidad</div>
-      </div>
-      <a class="product-buy" target="_blank" href="https://wa.me/51918851882?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20servicios%20de%20deportes%20en%20vivo.">
-        Comprar por WhatsApp
-      </a>
-    </div>
-
-    <div class="product-card reveal">
-      <div class="product-card-top">
-        <span class="product-tag tag-music">🎵 Música</span>
-        <h3>Música Premium</h3>
-        <p>Disfruta millones de canciones sin límites ni anuncios desde tus dispositivos.</p>
-        <div class="product-avail">Consulta planes</div>
-      </div>
-      <a class="product-buy" target="_blank" href="https://wa.me/51918851882?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20m%C3%BAsica%20premium.">
-        Comprar por WhatsApp
-      </a>
-    </div>
-
-    <div class="product-card reveal">
-      <div class="product-card-top">
-        <span class="product-tag tag-tool">💻 Herramientas</span>
-        <h3>Licencias digitales</h3>
-        <p>Productividad, diseño, inteligencia artificial y herramientas digitales premium.</p>
-        <div class="product-avail">Consulta catálogo</div>
-      </div>
-      <a class="product-buy" target="_blank" href="https://wa.me/51918851882?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20licencias%20digitales.">
-        Comprar por WhatsApp
-      </a>
-    </div>
-
-    <div class="product-card reveal">
-      <div class="product-card-top">
-        <span class="product-tag tag-vpn">🔒 Seguridad</span>
-        <h3>VPN Premium</h3>
-        <p>Conexión privada, estable y segura para navegar sin restricciones.</p>
-        <div class="product-avail">Consulta disponibilidad</div>
-      </div>
-      <a class="product-buy" target="_blank" href="https://wa.me/51918851882?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20VPN%20premium.">
-        Comprar por WhatsApp
-      </a>
-    </div>
-
+  <!-- Category tabs -->
+  <div class="cat-tabs reveal">
+    <button class="cat-tab active" data-cat="streaming">🎬 Streaming</button>
+    <button class="cat-tab" data-cat="deportes">⚽ Deportes</button>
+    <button class="cat-tab" data-cat="iptv">📡 IPTV</button>
+    <button class="cat-tab" data-cat="musica">🎵 Música</button>
+    <button class="cat-tab" data-cat="licencias">💻 Licencias</button>
+    <button class="cat-tab" data-cat="vpn">🔒 VPN</button>
   </div>
+
+  <!-- STREAMING -->
+  <div class="service-panel active" id="panel-streaming">
+    <div class="service-grid">
+      <div class="service-card" data-service="Netflix Premium">
+        <span class="svc-icon" style="background:#E50914;">N</span>
+        <span class="svc-name">Netflix Premium</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Disney+ Premium">
+        <span class="svc-icon" style="background:#113CCF;">D+</span>
+        <span class="svc-name">Disney+ Premium</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="HBO Max">
+        <span class="svc-icon" style="background:#5822B4;">M</span>
+        <span class="svc-name">HBO Max</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Prime Video">
+        <span class="svc-icon" style="background:#00A8E1;">a</span>
+        <span class="svc-name">Prime Video</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Paramount+">
+        <span class="svc-icon" style="background:#0064FF;">P+</span>
+        <span class="svc-name">Paramount+</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Apple TV+">
+        <span class="svc-icon" style="background:#1C1C1E;">🍎</span>
+        <span class="svc-name">Apple TV+</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="YouTube Premium">
+        <span class="svc-icon" style="background:#FF0000;">▶</span>
+        <span class="svc-name">YouTube Premium</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Crunchyroll Mega Fan">
+        <span class="svc-icon" style="background:#F47521;">CR</span>
+        <span class="svc-name">Crunchyroll Mega Fan</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Vix Premium">
+        <span class="svc-icon" style="background:#FF4713;">V</span>
+        <span class="svc-name">Vix Premium</span>
+        <span class="svc-arrow">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- DEPORTES -->
+  <div class="service-panel" id="panel-deportes">
+    <div class="service-grid">
+      <div class="service-card" data-service="DirecTV GO + Liga 1 Max">
+        <span class="svc-icon" style="background:#0072C6;">DTV</span>
+        <span class="svc-name">DirecTV GO + Liga 1 Max</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Claro Video + Liga 1 Max">
+        <span class="svc-icon" style="background:#DA291C;">CV</span>
+        <span class="svc-name">Claro Video + Liga 1 Max</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Movistar TV + Liga 1 Max">
+        <span class="svc-icon" style="background:#009BDE;">MTV</span>
+        <span class="svc-name">Movistar TV + Liga 1 Max</span>
+        <span class="svc-arrow">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- IPTV -->
+  <div class="service-panel" id="panel-iptv">
+    <div class="service-grid">
+      <div class="service-card" data-service="Flujo TV">
+        <span class="svc-icon" style="background:#FF6B35;">📡</span>
+        <span class="svc-name">Flujo TV <span class="svc-badge">🔥 Más vendido</span></span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Oleada TV (MagisTV Pro)">
+        <span class="svc-icon" style="background:#00BFFF;">OL</span>
+        <span class="svc-name">Oleada TV (MagisTV Pro)</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="IPTV Smarters Pro">
+        <span class="svc-icon" style="background:#6C3CE1;">IP</span>
+        <span class="svc-name">IPTV Smarters Pro</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Plex TV">
+        <span class="svc-icon" style="background:#E5A00D;">PL</span>
+        <span class="svc-name">Plex TV</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Gacru TV">
+        <span class="svc-icon" style="background:#FF8C00;">G</span>
+        <span class="svc-name">Gacru TV</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Tele Latino">
+        <span class="svc-icon" style="background:#C0392B;">TL</span>
+        <span class="svc-name">Tele Latino</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Stella TV">
+        <span class="svc-icon" style="background:#8B5CF6;">ST</span>
+        <span class="svc-name">Stella TV</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="TV Mágico">
+        <span class="svc-icon" style="background:#1DA1F2;">TV</span>
+        <span class="svc-name">TV Mágico</span>
+        <span class="svc-arrow">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MÚSICA -->
+  <div class="service-panel" id="panel-musica">
+    <div class="service-grid">
+      <div class="service-card" data-service="Spotify Premium">
+        <span class="svc-icon" style="background:#1DB954;">SP</span>
+        <span class="svc-name">Spotify Premium</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="YouTube Music Premium">
+        <span class="svc-icon" style="background:#FF0000;">YM</span>
+        <span class="svc-name">YouTube Music Premium</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Tidal Music">
+        <span class="svc-icon" style="background:#1C1C1C;">Ti</span>
+        <span class="svc-name">Tidal Music</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Deezer Music">
+        <span class="svc-icon" style="background:#6B2FBF;">Dz</span>
+        <span class="svc-name">Deezer Music</span>
+        <span class="svc-arrow">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LICENCIAS -->
+  <div class="service-panel" id="panel-licencias">
+    <div class="service-grid">
+      <div class="service-card" data-service="Canva Pro">
+        <span class="svc-icon" style="background:#00C4CC;">C</span>
+        <span class="svc-name">Canva Pro</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Adobe Creative Cloud">
+        <span class="svc-icon" style="background:#FF0000;">Ps</span>
+        <span class="svc-name">Adobe Creative Cloud</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Adobe Express Premium">
+        <span class="svc-icon" style="background:#FF0000;">Ae</span>
+        <span class="svc-name">Adobe Express Premium</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="CapCut Pro">
+        <span class="svc-icon" style="background:#000000;">CC</span>
+        <span class="svc-name">CapCut Pro</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="ChatGPT Plus">
+        <span class="svc-icon" style="background:#10A37F;">AI</span>
+        <span class="svc-name">ChatGPT Plus</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Office 365 Premium">
+        <span class="svc-icon" style="background:#D83B01;">O</span>
+        <span class="svc-name">Office 365 Premium</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Windows 10 Pro">
+        <span class="svc-icon" style="background:#0078D4;">W</span>
+        <span class="svc-name">Windows 10 Pro</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Windows 11 Pro">
+        <span class="svc-icon" style="background:#0078D4;">W</span>
+        <span class="svc-name">Windows 11 Pro</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Duolingo Pro">
+        <span class="svc-icon" style="background:#58CC02;">Du</span>
+        <span class="svc-name">Duolingo Pro</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Antivirus Kaspersky Premium">
+        <span class="svc-icon" style="background:#006D5B;">K</span>
+        <span class="svc-name">Antivirus Kaspersky Premium</span>
+        <span class="svc-arrow">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- VPN -->
+  <div class="service-panel" id="panel-vpn">
+    <div class="service-grid">
+      <div class="service-card" data-service="Surfshark VPN">
+        <span class="svc-icon" style="background:#00B4D8;">SF</span>
+        <span class="svc-name">Surfshark VPN</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="ExpressVPN">
+        <span class="svc-icon" style="background:#DA3940;">EV</span>
+        <span class="svc-name">ExpressVPN</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="NordVPN">
+        <span class="svc-icon" style="background:#4687FF;">NV</span>
+        <span class="svc-name">NordVPN</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="HolaVPN">
+        <span class="svc-icon" style="background:#FF6B00;">HV</span>
+        <span class="svc-name">HolaVPN</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="HMA VPN">
+        <span class="svc-icon" style="background:#FF8C00;">HM</span>
+        <span class="svc-name">HMA VPN</span>
+        <span class="svc-arrow">›</span>
+      </div>
+      <div class="service-card" data-service="Urban VPN">
+        <span class="svc-icon" style="background:#CC0000;">UV</span>
+        <span class="svc-name">Urban VPN</span>
+        <span class="svc-arrow">›</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drawer / Bottom sheet -->
+  <div class="svc-drawer-overlay" id="drawerOverlay"></div>
+  <div class="svc-drawer" id="serviceDrawer">
+    <div class="drawer-handle"></div>
+    <div class="drawer-icon-wrap">
+      <span class="drawer-icon" id="drawerIcon"></span>
+    </div>
+    <h3 class="drawer-title" id="drawerTitle"></h3>
+    <p class="drawer-desc">Escríbenos por WhatsApp y te damos precio, disponibilidad y método de pago al instante.</p>
+    <div class="drawer-pills">
+      <span class="drawer-pill">⚡ Entrega rápida</span>
+      <span class="drawer-pill">🛡️ Con garantía</span>
+      <span class="drawer-pill">💬 Atención directa</span>
+    </div>
+    <a class="drawer-buy" id="drawerBuy" href="#" target="_blank">
+      💬 Quiero este servicio por WhatsApp
+    </a>
+    <button class="drawer-close" id="drawerClose">Cancelar</button>
+  </div>
+
 </section>
 
 <!-- CÓMO COMPRAR -->
@@ -917,6 +1203,54 @@
     });
   }, { threshold: 0.12 });
   reveals.forEach(el => io.observe(el));
+
+  // Category tabs
+  document.querySelectorAll('.cat-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.service-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('panel-' + tab.dataset.cat).classList.add('active');
+    });
+  });
+
+  // Drawer logic
+  const overlay = document.getElementById('drawerOverlay');
+  const drawer = document.getElementById('serviceDrawer');
+  const drawerTitle = document.getElementById('drawerTitle');
+  const drawerIcon = document.getElementById('drawerIcon');
+  const drawerBuy = document.getElementById('drawerBuy');
+  const drawerClose = document.getElementById('drawerClose');
+
+  function openDrawer(name, iconEl) {
+    drawerTitle.textContent = name;
+    // Clone icon style
+    drawerIcon.textContent = iconEl.textContent;
+    drawerIcon.style.background = iconEl.style.background;
+    // Build WhatsApp link
+    const msg = encodeURIComponent('Hola 👋, vengo desde Mundo Streaming TV y quiero información sobre: ' + name);
+    drawerBuy.href = 'https://wa.me/51918851882?text=' + msg;
+    overlay.classList.add('open');
+    drawer.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    overlay.classList.remove('open');
+    drawer.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const name = card.dataset.service;
+      const iconEl = card.querySelector('.svc-icon');
+      openDrawer(name, iconEl);
+    });
+  });
+
+  overlay.addEventListener('click', closeDrawer);
+  drawerClose.addEventListener('click', closeDrawer);
 </script>
 
 </body>
